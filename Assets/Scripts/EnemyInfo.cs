@@ -16,15 +16,33 @@ public class EnemyInfo : MonoBehaviour
     private Quaternion startQuaternion;
     private float movementSpeed;
 
+    private Vector3 offset;
+
+    public bool DangerApproaching { get; set; }
+
     private void Start()
     {
-        startQuaternion = Quaternion.identity;
+       startQuaternion = Quaternion.identity;
 
         enemySpawn = GameObject.Find("Game Manager").GetComponent<EnemySpawn>();
         MovementSpeed = movementSpeed;
 
         rigidbody = GetComponent<Rigidbody>();
         LookAtPlanet();
+    }
+
+    private void Update()
+    {
+        offset = catPlanet.transform.position - transform.position;
+
+        if(offset.magnitude <= GameManager.INSTANCE.DangerDistance)
+        {
+            DangerApproaching = true;
+        }
+        else
+        {
+            DangerApproaching = false;
+        }
     }
 
     public void LookAtPlanet()

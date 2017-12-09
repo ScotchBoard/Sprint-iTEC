@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Enemies")]
+    [SerializeField]
+    private float dangerDistance = 70f;
+
+    [Header("Waves")]
     [SerializeField]
     private int enemyNumberIncrease = 5;
     [SerializeField]
@@ -19,6 +24,7 @@ public class GameManager : MonoBehaviour
     public static GameManager INSTANCE = null;
 
     public bool IsGameOver { get; set; }
+    public float DangerDistance { get { return dangerDistance; } }
     //public bool WaveDone { get; set; }
 
     private int waveCount = 1;

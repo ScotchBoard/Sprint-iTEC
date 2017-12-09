@@ -4,6 +4,190 @@ using UnityEngine;
 
 public class OnScreenIndicator : MonoBehaviour
 {
+    public GameObject player;
+
+    public GameObject arrowPrefab;
+    private GameObject arrow;
+
+    public GameObject indicatorPrefab;
+    private GameObject indicator;
+
+    List<GameObject> arrowPool = new List<GameObject>();
+    int arrowPoolCursor = 0;
+
+    List<GameObject> indicatorPool = new List<GameObject>();
+    int indicatorPoolCursor = 0;
+
+    List<GameObject> enemies = new List<GameObject>();
+
+    private void LateUpdate()
+    {
+        Paint();
+    }
+
+    private void Paint()
+    {
+        ResetPool();
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach(var enemy in enemies)
+        {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(enemy.transform.position);
+
+            Color color;
+            color = Color.red;
+
+            if (screenPos.z > 0 &&
+                screenPos.x > 0 && screenPos.x < Screen.width &&
+                screenPos.y > 0 && screenPos.y < Screen.height)
+            {
+                /*
+                arrow.gameObject.SetActive(false);
+                indicator.gameObject.SetActive(true);
+                */
+                GameObject indicatorArrow = GetIndicator();
+                indicatorArrow.GetComponent<SpriteRenderer>().color = color;
+                indicatorArrow.transform.localPosition = screenPos;
+
+                indicatorArrow.transform.LookAt(player.transform);
+                //Debug.Log(indicatorArrow.transform.position);
+            }
+            else
+            {/*
+                arrow.gameObject.SetActive(true);
+                indicator.gameObject.SetActive(false);*/
+                if (enemy.GetComponent<EnemyInfo>().DangerApproaching)
+                {
+                    if (screenPos.z < 0)
+                    {
+                        // stuff is flipped when behind us
+                        screenPos *= -1;
+                    }
+
+                    Vector3 screenCenter = new Vector3(Screen.width, Screen.height, 0) / 2;
+
+                    // make (0,0) the center of the screen instead of bottom left
+                    screenPos -= screenCenter;
+
+                    // find angle from center of screen to mouse position
+                    float angle = Mathf.Atan2(screenPos.y, screenPos.x);
+                    angle -= 90 * Mathf.Deg2Rad;
+
+                    float cos = Mathf.Cos(angle);
+                    float sin = -Mathf.Sin(angle);
+
+                    screenPos = screenCenter + new Vector3(sin * 150, cos * 150, 0);
+
+                    // y=mx+b format
+                    float m = cos / sin;
+
+                    Vector3 screenBounds = screenCenter * 0.9f;
+
+                    // check up and down first
+                    if (cos > 0)
+                    {
+                        screenPos = new Vector3(screenBounds.y / m, screenBounds.y, 0);
+                    }
+                    else
+                    {
+                        // down
+                        screenPos = new Vector3(-screenBounds.y / m, -screenBounds.y, 0);
+                    }
+
+                    // if out of bounds, get point on appropriate side
+                    if (screenPos.x > screenBounds.x)
+                    {
+                        // out of bounds, must be on the right
+                        screenPos = new Vector3(screenBounds.x, screenBounds.x * m, 0);
+                    }
+                    else // else in bounds
+                    {
+                        if (screenPos.x < -screenBounds.x)
+                        {
+                            // out if bounds left
+                            screenPos = new Vector3(-screenBounds.x, -screenBounds.x * m, 0);
+                        }
+                    }
+
+                    // remove coordinate translation
+                    screenPos += screenCenter;
+
+                    arrow = GetArrow();
+                    arrow.GetComponent<SpriteRenderer>().color = color;
+                    arrow.transform.localPosition = screenPos;
+                    arrow.transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
+                }
+            }
+        }
+        CleanPool();
+    }
+
+    void ResetPool()
+    {
+        indicatorPoolCursor = 0;
+        arrowPoolCursor = 0;
+    }
+
+    GameObject GetArrow()
+    {
+        GameObject output;
+        if(arrowPoolCursor < arrowPool.Count)
+        {
+            output = arrowPool[arrowPoolCursor]; // get existing
+        }
+        else
+        {
+            output = Instantiate(arrowPrefab);
+            output.transform.parent = transform;
+            output.transform.localScale = new Vector3(100, 100, 100);
+            arrowPool.Add(output);
+        }
+
+        arrowPoolCursor++;
+
+        return output;
+    }
+
+    GameObject GetIndicator()
+    {
+        GameObject output;
+        if (indicatorPoolCursor < indicatorPool.Count)
+        {
+            output = indicatorPool[indicatorPoolCursor]; // get existing
+        }
+        else
+        {
+            output = Instantiate(indicatorPrefab);
+            output.transform.parent = transform;
+            output.transform.localScale = new Vector3(300, 300, 300);
+            indicatorPool.Add(output);
+        }
+
+        indicatorPoolCursor++;
+
+        return output;
+    }
+
+    void CleanPool()
+    {
+        while (indicatorPool.Count > indicatorPoolCursor)
+        {
+            GameObject obj = indicatorPool[indicatorPool.Count - 1];
+            indicatorPool.Remove(obj);
+            Destroy(obj.gameObject);
+        }
+
+        while (arrowPool.Count > arrowPoolCursor)
+        {
+            GameObject obj2 = arrowPool[arrowPool.Count - 1];
+            arrowPool.Remove(obj2);
+            Destroy(obj2.gameObject);
+        }
+    }
+
+    #region SecondTry
+    /*
     public GameObject goTarget;
 
     void Update()
@@ -36,9 +220,9 @@ public class OnScreenIndicator : MonoBehaviour
         v3Pos.y = 0.5f * Mathf.Cos(fAngle) + 0.5f;  //   side of viewport
         v3Pos.z = Camera.main.nearClipPlane + 0.01f;  // Looking from neg to pos Z;
         transform.position = Camera.main.ViewportToWorldPoint(v3Pos);
-    }
-}
-
+    }*/
+    #endregion
+    #region FirstTry
     /*
     [SerializeField]
     private Transform t;
@@ -103,3 +287,5 @@ public class OnScreenIndicator : MonoBehaviour
     }
     */
 
+    #endregion
+}
