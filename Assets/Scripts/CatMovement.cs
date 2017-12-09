@@ -20,7 +20,6 @@ public class CatMovement : MonoBehaviour
     {
         radius = planet.radius * planet.transform.localScale.y;
         centre = planet.transform;
-
         // starting position at north pole
         transform.position = centre.position + new Vector3(0, radius + height, 0);
     }
