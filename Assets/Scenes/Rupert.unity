@@ -1250,6 +1250,10 @@ Prefab:
       propertyPath: m_TagString
       value: CatPlanet
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 3bfeb6a5fa9742c4f90b7af2efdb9b28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bfeb6a5fa9742c4f90b7af2efdb9b28, type: 3}
   m_IsPrefabParent: 0
