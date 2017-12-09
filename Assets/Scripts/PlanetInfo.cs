@@ -7,8 +7,25 @@ public class PlanetInfo : MonoBehaviour
     [SerializeField]
     private int healthPoints;
 
-    public void Hurt(int damage)
+
+    private void Hurt()
     {
-        healthPoints -= damage;
+        if (healthPoints > 0)
+        {
+            healthPoints -= 1;
+        }
+
+        if (healthPoints <= 0)
+        { 
+            GameManager.INSTANCE.GameOver();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Hurt();
+        }
     }
 }

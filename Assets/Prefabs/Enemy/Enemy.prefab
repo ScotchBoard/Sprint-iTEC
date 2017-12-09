@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 54779791537259792}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &114388384668210800
 MonoBehaviour:
@@ -109,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecf13b0b52b1f549ad0da747003266e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  catPlanet: {fileID: 0}
+  movementSpeed: 2
+  movementSpeedRange: {x: 2, y: 5}
+  catPlanet: {fileID: 1427519548845852, guid: d88fc8a5e4d128b45924da7ec79fb28d, type: 2}
 --- !u!136 &136141383489423120
 CapsuleCollider:
   m_ObjectHideFlags: 1

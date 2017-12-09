@@ -26,10 +26,13 @@ public class CatMovement : MonoBehaviour
     }
 
     void Update()
-    {   
-        Translate();
-        Align();
-        Rotate();
+    {
+        if (!GameManager.INSTANCE.IsGameOver)
+        {
+            Translate();
+            Align();
+            Rotate();
+        }
     }
 
     // Rotation

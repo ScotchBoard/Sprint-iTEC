@@ -15,18 +15,77 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField]
     private float distance = 20f;
     [SerializeField]
-    private float enemySpeed = 10f;
+    private int maxObjects = 20;
 
+    private GameObject[] enemies;
+    private int count;
+
+    public int ObjectsNumber { get { return objectsNumber; } private set { objectsNumber = value; } }
+    public int MaxObjectsNumber { get { return maxObjects; } private set { maxObjects = value; } }
+
+    private int objectsNumberPrivate;
+    
     void Start()
+    {
+        count = 0;
+        ObjectsNumber = objectsNumber;
+        objectsNumberPrivate = objectsNumber;
+
+        maxObjects -= 1;
+        MaxObjectsNumber = maxObjects;
+
+        CreateEnemies(objectsNumber);
+    }
+
+    public void ChangeMaxObjectsNumber(int number)
+    {
+        maxObjects = number;
+    }
+
+    private Vector3 RandomPosition()
     {
         Vector3 center = catPlanet.transform.position;
         SphereCollider planetCollider = catPlanet.GetComponent<SphereCollider>();
 
-        for (int i = 0; i < objectsNumber; i++)
-        {
-            Vector3 spawnPosition = Random.onUnitSphere * (planetCollider.radius + distance) + center;
+        return Random.onUnitSphere * (planetCollider.radius + distance) + center;
+    }
 
-            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+    public void CreateEnemies(int objectsNumber)
+    {
+        ObjectsNumber = objectsNumber;
+        enemies = new GameObject[objectsNumber];
+        //GameManager.INSTANCE.WaveDone = false;
+
+        for (int i = 0; i < objectsNumber; i++)
+        {   
+            GameObject enemy = Instantiate(enemyPrefab, RandomPosition(), Quaternion.identity);
+            enemies[i] = enemy;
+        }
+        count = objectsNumber;
+        objectsNumberPrivate = 0;
+    }
+
+    public void Eliminate(GameObject enemy)
+    {
+        //Debug.Log("1. " + objectsNumberPrivate + " " + count + " " + maxObjects);
+        if (count < maxObjects && !GameManager.INSTANCE.IsGameOver)
+        {
+            enemy.transform.position = RandomPosition();
+            enemy.GetComponent<EnemyInfo>().LookAtPlanet();
+            count++;
+            objectsNumberPrivate++;
+        }
+        else
+        {
+            //GameManager.INSTANCE.WaveDone = true;
+            Destroy(enemy.gameObject);
+            objectsNumberPrivate--;
+
+        }
+        //Debug.Log("2. " + objectsNumberPrivate + " " + count + " " + maxObjects);
+        if (objectsNumberPrivate <= 0)
+        {
+            GameManager.INSTANCE.WaveFinnished();
         }
     }
 }
