@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Rupert.unity
     guid: e8379e99221ffc444bf03137634e21e6
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: f253f7c008e32d142aa2c4a97aff993c

@@ -142,9 +142,12 @@ public class ComboMeter : MonoBehaviour
     {
         while(true)
         {
-            yield return new WaitForSeconds(2);
-            progressBar.IncrementValue(1);
-            currentLevel++;
+            yield return new WaitForSeconds(3);
+            if (!GameManager.INSTANCE.IsGamePaused)
+            {
+                progressBar.IncrementValue(1);
+                //currentLevel++;
+            }
         }
     }
 }

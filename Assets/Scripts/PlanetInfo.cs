@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlanetInfo : MonoBehaviour
 {
     [SerializeField]
     private int healthPoints;
+    [SerializeField]
+    private Text planetHealthText;
 
     private int planetHealth;
 
@@ -14,12 +17,18 @@ public class PlanetInfo : MonoBehaviour
         ResetHealth();
     }
 
+    private void Start()
+    {
+        planetHealthText.text = "Purrrlandia's HP: " + planetHealth;
+    }
+
     private void Hurt()
     {
         GameManager.INSTANCE.ResetCombo();
         if (planetHealth > 0)
         {
             planetHealth -= 1;
+            planetHealthText.text = "Purrrlandia's HP: " + planetHealth;
         }
 
         if (planetHealth <= 0)

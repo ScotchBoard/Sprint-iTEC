@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour
 {
     [SerializeField]
-    private int objectsNumber = 10;
+    private GameObject[] enemyPrefab;
     [SerializeField]
-    private GameObject enemyPrefab;
+    private int objectsNumber = 10;
     [SerializeField]
     private GameObject catPlanet;
     [SerializeField]
@@ -58,7 +58,7 @@ public class EnemySpawn : MonoBehaviour
 
         for (int i = 0; i < objectsNumber; i++)
         {   
-            GameObject enemy = Instantiate(enemyPrefab, RandomPosition(), Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab[Random.Range(0,2)], RandomPosition(), Quaternion.identity);
             enemies[i] = enemy;
         }
         count = objectsNumber;
