@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyInfo>().Hurt();
+            GameManager.INSTANCE.IncreaseCombo();
             Destroy(gameObject);
         }
     }

@@ -24,13 +24,18 @@ public class GameManager : MonoBehaviour
     public static GameManager INSTANCE = null;
 
     public bool IsGameOver { get; set; }
+    public bool IsGamePaused { get; set; }
     public float DangerDistance { get { return dangerDistance; } }
     //public bool WaveDone { get; set; }
 
     private int waveCount = 1;
 
+    private ComboMeter comboMeter;
+
     void Awake()
     {
+        comboMeter = GetComponentInParent<ComboMeter>();
+
         //Check if instance already exists
         if (INSTANCE == null)
         {
@@ -63,6 +68,8 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
     }
 
+    #region Wave Mechanics
+
     public void WaveFinnished()
     {
         if(waveCount <= waveNumber && !IsGameOver)
@@ -86,4 +93,20 @@ public class GameManager : MonoBehaviour
         GetComponentInParent<EnemySpawn>().CreateEnemies(GetComponentInParent<EnemySpawn>().ObjectsNumber + enemyNumberIncrease);
         GetComponentInParent<EnemySpawn>().ChangeMaxObjectsNumber(GetComponentInParent<EnemySpawn>().MaxObjectsNumber + enemyMaxNumberIncrease);
     }
+
+    #endregion
+
+    #region Combo Mew-Meter
+
+    public void IncreaseCombo()
+    {
+        comboMeter.IncreaseCombo();
+    }
+
+    public void ResetCombo()
+    {
+        comboMeter.ResetCombo();
+    }
+
+    #endregion
 }

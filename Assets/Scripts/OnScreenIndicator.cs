@@ -35,9 +35,6 @@ public class OnScreenIndicator : MonoBehaviour
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(enemy.transform.position);
 
-            Color color;
-            color = Color.red;
-
             if (screenPos.z > 0 &&
                 screenPos.x > 0 && screenPos.x < Screen.width &&
                 screenPos.y > 0 && screenPos.y < Screen.height)
@@ -47,7 +44,14 @@ public class OnScreenIndicator : MonoBehaviour
                 indicator.gameObject.SetActive(true);
                 */
                 GameObject indicatorArrow = GetIndicator();
-                indicatorArrow.GetComponent<SpriteRenderer>().color = color;
+                if (enemy.GetComponent<EnemyInfo>().DangerApproaching)
+                {
+                    indicatorArrow.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                else
+                {
+                    indicatorArrow.GetComponent<SpriteRenderer>().color = Color.green;
+                }
                 indicatorArrow.transform.localPosition = screenPos;
 
                 indicatorArrow.transform.LookAt(player.transform);
@@ -114,7 +118,7 @@ public class OnScreenIndicator : MonoBehaviour
                     screenPos += screenCenter;
 
                     arrow = GetArrow();
-                    arrow.GetComponent<SpriteRenderer>().color = color;
+                    arrow.GetComponent<SpriteRenderer>().color = Color.red;
                     arrow.transform.localPosition = screenPos;
                     arrow.transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
                 }

@@ -43,13 +43,18 @@ public class EnemyInfo : MonoBehaviour
         {
             DangerApproaching = false;
         }
+
+        LookAtPlanet();
     }
 
     public void LookAtPlanet()
     {
         transform.LookAt(catPlanet.transform.position);
-        movementSpeed = Random.Range(movementSpeedRange.x, movementSpeedRange.y);
-        rigidbody.velocity = transform.forward * movementSpeed;
+        if (!GameManager.INSTANCE.IsGamePaused)
+        {
+            movementSpeed = Random.Range(movementSpeedRange.x, movementSpeedRange.y);
+            rigidbody.velocity = transform.forward * movementSpeed;
+        }
         //rigidbody.AddForce(transform.forward * movementSpeed, ForceMode.Force);
     }
 

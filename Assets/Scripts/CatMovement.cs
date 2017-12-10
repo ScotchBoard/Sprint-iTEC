@@ -26,7 +26,7 @@ public class CatMovement : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.INSTANCE.IsGameOver)
+        if (!GameManager.INSTANCE.IsGameOver && !GameManager.INSTANCE.IsGamePaused)
         {
             Translate();
             Align();
