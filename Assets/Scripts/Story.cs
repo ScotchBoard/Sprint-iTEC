@@ -49,6 +49,6 @@ public class Story : MonoBehaviour
 
         storyText.text = "";
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 }

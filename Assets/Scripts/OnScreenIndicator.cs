@@ -164,7 +164,7 @@ public class OnScreenIndicator : MonoBehaviour
         {
             output = Instantiate(indicatorPrefab);
             output.transform.parent = transform;
-            output.transform.localScale = new Vector3(300, 300, 300);
+            output.transform.localScale = new Vector3(200, 200, 200);
             indicatorPool.Add(output);
         }
 

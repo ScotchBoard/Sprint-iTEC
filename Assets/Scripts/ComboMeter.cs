@@ -8,6 +8,8 @@ public class ComboMeter : MonoBehaviour
     [SerializeField]
     private GameObject nyanSong;
     [SerializeField]
+    private GameObject healSong;
+    [SerializeField]
     private GameObject nyanCat;
     [SerializeField]
     private int destroySkill = 60;
@@ -105,9 +107,20 @@ public class ComboMeter : MonoBehaviour
     {
         currentLevel -= healSkill;
 
+        //healSong.GetComponent<AudioSource>().time = 1.5f;
+        healSong.GetComponent<AudioSource>().Play();
+
         GameObject.FindGameObjectWithTag("CatPlanet").GetComponent<PlanetInfo>().ResetHealth();
 
+        StartCoroutine(ResetTheHeal());
+
         progressBar.DecrementValue(healSkill);
+    }
+
+    IEnumerator ResetTheHeal()
+    {
+        yield return new WaitForSeconds(2);
+        healSong.GetComponent<AudioSource>().Stop();
     }
 
     public void IncreaseCombo()
