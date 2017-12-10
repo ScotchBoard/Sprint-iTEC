@@ -7,18 +7,30 @@ public class PlanetInfo : MonoBehaviour
     [SerializeField]
     private int healthPoints;
 
+    private int planetHealth;
+
+    private void Awake()
+    {
+        ResetHealth();
+    }
 
     private void Hurt()
     {
-        if (healthPoints > 0)
+        GameManager.INSTANCE.ResetCombo();
+        if (planetHealth > 0)
         {
-            healthPoints -= 1;
+            planetHealth -= 1;
         }
 
-        if (healthPoints <= 0)
+        if (planetHealth <= 0)
         { 
             GameManager.INSTANCE.GameOver();
         }
+    }
+
+    public void ResetHealth()
+    {
+        planetHealth = healthPoints;
     }
 
     private void OnCollisionEnter(Collision collision)

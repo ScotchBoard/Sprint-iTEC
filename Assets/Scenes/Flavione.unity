@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4343265, g: 0.4343265, b: 0.4343265, a: 1}
+  m_IndirectSpecularColor: {r: 0.04344748, g: 0.04184796, b: 0.044882335, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -312,7 +312,11 @@ Transform:
   m_Children:
   - {fileID: 1098193873}
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 8
+=======
+  m_RootOrder: 3
+>>>>>>> ac0ef69a9ba6c3e16c229aed6cbe9353d0996a70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &543193205
 Prefab:
@@ -3874,15 +3878,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400004, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 483.8863
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 698.94476
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 665.7387
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3902,11 +3906,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
       propertyPath: m_IsActive
       value: 0
+=======
+      value: 1
+>>>>>>> ac0ef69a9ba6c3e16c229aed6cbe9353d0996a70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 89819c5c795463f4eab4ab3f62248c77, type: 3}
@@ -4028,6 +4036,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95a2406f5b2858143bd2e7c2ea6fffd3, type: 3}
   m_IsPrefabParent: 0
+<<<<<<< HEAD
 --- !u!1001 &1371202992
 Prefab:
   m_ObjectHideFlags: 0
@@ -4124,3 +4133,5 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bfeb6a5fa9742c4f90b7af2efdb9b28, type: 3}
   m_IsPrefabParent: 0
+=======
+>>>>>>> ac0ef69a9ba6c3e16c229aed6cbe9353d0996a70
