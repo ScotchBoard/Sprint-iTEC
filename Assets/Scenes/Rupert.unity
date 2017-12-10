@@ -2248,7 +2248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooling: {fileID: 1277228891}
   coolingTime: 3
-  bulletPrefab: {fileID: 1407207770463780, guid: c9270f9f9dded714a9c6c79365447327,
+  bulletPrefab: {fileID: 1659279398514610, guid: ab0d7b6e589a22446b0c4191958b000c,
     type: 2}
   bulletSpeed: 3000
   spawnPoint: {fileID: 264780010}
