@@ -20,7 +20,7 @@ public class ComboMeter : MonoBehaviour
     [SerializeField]
     private int maxCombo = 100;
 
-    private int currentLevel;
+    private int currentLevel, currentCombo;
     private ProgressBarBehaviour progressBar;
     private GameObject player;
 
@@ -49,6 +49,7 @@ public class ComboMeter : MonoBehaviour
         */
         if (Input.GetKeyDown(KeyCode.Alpha1) && currentLevel >= destroySkill)
         {
+
             DestroySkill();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2) && currentLevel >= healSkill)
@@ -113,13 +114,13 @@ public class ComboMeter : MonoBehaviour
     {
         int gain = 0;
 
-        if(currentLevel <= firstThreshold)
+        if(currentCombo <= firstThreshold)
         {
             gain = 1;
         }
         else
         {
-            if(currentLevel <= secondThreshold)
+            if(currentCombo <= secondThreshold)
             {
                 gain = 2;
             }
@@ -128,14 +129,17 @@ public class ComboMeter : MonoBehaviour
                 gain = 5;
             }
         }
-        currentLevel += gain;
+        currentCombo += gain;
+        if (currentLevel <= 100)
+        {
+            currentLevel += gain;
+        }
         progressBar.IncrementValue(gain);
     }
 
     public void ResetCombo()
     {
-        currentLevel = 0;
-        progressBar.Value = currentLevel;
+        currentCombo = 0;
     }
 
     IEnumerator IncreaseComboPasively()
@@ -146,7 +150,7 @@ public class ComboMeter : MonoBehaviour
             if (!GameManager.INSTANCE.IsGamePaused)
             {
                 progressBar.IncrementValue(1);
-                //currentLevel++;
+                currentLevel++;
             }
         }
     }

@@ -40,6 +40,7 @@ public class PlanetInfo : MonoBehaviour
     public void ResetHealth()
     {
         planetHealth = healthPoints;
+        planetHealthText.text = "Purrrlandia's HP: " + planetHealth;
     }
 
     private void OnCollisionEnter(Collision collision)
